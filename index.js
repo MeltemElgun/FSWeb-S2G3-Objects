@@ -15,10 +15,15 @@ const serpmeKahvalti = {isim: "Serpme Kahvaltı", fiyat: 16, kategori:"Kahvaltı
 */
 
 
-function MenuElemaniOlustur(/*Kodlar buraya*/){
-	/*Kodlar buraya*/
+function MenuElemaniOlustur(yemek, fiyatı, çeşit){
+const menü={
+		isim:yemek,
+		fiyat:fiyatı,
+		kategori:çeşit
+	}
+	return menü;
 }
-
+console.log(MenuElemaniOlustur('Cheeseburger', 8, 'Burgerler'));
 
 
 /*  Görev 1b (otomatik test yok): 
@@ -30,9 +35,9 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 	
 	Örnek: MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar") şunu döndürür: {isim:"Karışık Pizza",fiyat:5,kategori:"Pizzalar"}
 */
-
-
-
+console.log(MenuElemaniOlustur("Karışık Pizza",5,"Pizzalar"));
+console.log(MenuElemaniOlustur('Döner', 10, 'İskender'));
+console.log(MenuElemaniOlustur('Kebap', 12, 'Adana Kebap'));
 /* Görev 2: 
 	Özel bir öğle yemeği yiyorsun! Öğretmen ve öğrencilere %25, diğer kişilere %10 indirim var. Aşağıdaki burger nesnesine, indirimi fiyatı otomatik olarak hesaplayan bir metot ekleyin.
 	
@@ -44,15 +49,28 @@ function MenuElemaniOlustur(/*Kodlar buraya*/){
 	
 	Örnek: burger.indirim("öğretmen") 13.5 döndürmeli ve burger.indirim("diğer") 16.2 döndürmeli
 */
-
-
 const burger = {
 	isim: "Burger", 
 	fiyat: 18, 
 	kategori: "Öğle Yemeği", 
-
 }
-
+    
+   let İndirimi1=burger.fiyat-(burger.fiyat*0.25);
+   let İndirimi2=burger.fiyat-(burger.fiyat*0.10);
+ burger.indirim= function (gelenKişi){
+	if (gelenKişi=="öğretmen"||gelenKişi=="öğrenci") {
+		return İndirimi1;
+	}
+	if (gelenKişi=="diğer") {
+		return İndirimi2;
+	}
+  }
+  console.log(burger.indirim("öğretmen"));
+  console.log(burger.indirim("öğrenci"));
+  console.log(burger.indirim("diğer"));
+       
+  
+  
 
 
 ///////////////Değerlendirmeler (MVP)///////////////////
@@ -71,7 +89,6 @@ const degerlendirmeler = [
 	Yukarıdaki degerlendirmeler dizisini(array) kullanarak:
 	1. Sadece Ahmet'in geribildirimini konsolda görüntüleyin - fonksiyona gerek yok
 */
-
 
 
 /*  Görev 4 (ototest yok):  
@@ -93,12 +110,20 @@ const degerlendirmeler = [
 	4. Güncellenmiş diziyi döndürecek
 */
 
+	
 
-function DegerledirmeEkle(/*Kodlar buraya */){
-	/*Kodlar buraya */
+ 
+function DegerledirmeEkle(degerlendirmelerA,isim,puan,geribildirim){
+	const degerlendirme={
+	isim:isim, 
+	puan:puan, 
+	geribildirim:geribildirim
+    }
+	 degerlendirmelerA.push(degerlendirme);
+return degerlendirmelerA;
 	
 }
-
+console.log(DegerledirmeEkle(degerlendirmeler, 'Hurşut', 2, 'Boktan yemekler!'))
 
 
 /*  Görev 6: 
@@ -112,11 +137,12 @@ function DegerledirmeEkle(/*Kodlar buraya */){
 */
 
 
-function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
+function AnahtardanDegerlendirmeAl(dizi,anahtarı) {
+
+	return`${dizi[anahtarı].isim} isimli kişi ${dizi[anahtarı].puan} puan verdi ve şunları yazdı: ${dizi[anahtarı].geribildirim}`
 
 }
-
+ console.log(AnahtardanDegerlendirmeAl(degerlendirmeler,0));
 
 
 /*  Görev 7:  
@@ -132,11 +158,12 @@ function AnahtardanDegerlendirmeAl(/*Kodlar buraya*/) {
 */
 
 
-function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
-	/*Kodlar buraya*/
+function SonDegerlendirmeyiAl(dizi) {
+	
+	return(`${dizi[7].isim} isimli kişi ${dizi[7].puan} puan verdi ve şunları yazdı: ${dizi[7].geribildirim}`)
 } 
 
-
+console.log( SonDegerlendirmeyiAl(degerlendirmeler))
 
 /////////////// BONUS  GÖRVLER////////////////////
 
@@ -154,10 +181,16 @@ function SonDegerlendirmeyiAl(/*Kodlar buraya*/) {
 	]
 */
 
-function PuanaGoreDegerlendirmeAl(/* Kodlar buraya */) {
-    /* Kodlar buraya */
+function PuanaGoreDegerlendirmeAl(dizi,puan) {
+   let sayi=Math.floor(dizi.puan)
+   for (let i = 0; i < dizi.length; i++) {
+	if (sayi==puan) {
+	return `${dizi[i].isim} isimli kişi ${dizi[i].puan} puan verdi ve şunları yazdı: ${dizi[i].geribildirim}`
+   }
+   }
+   
 }
-
+console.log(PuanaGoreDegerlendirmeAl(degerlendirmeler, 4))
 
 /*  BONUS 2:    
 	UzunDegerlendirmeleriAl fonksiyonuna aşağıdakileri uygulayın:
@@ -189,8 +222,8 @@ function UzunDegerlendirmeleriAl(/* Kodlar buraya */) {
 */
 
 
-function arabaYapici(/* Kodlar buraya */) {
-    /* Kodlar buraya */
+function arabaYapici(sayacı) {
+   
     
 }
 
